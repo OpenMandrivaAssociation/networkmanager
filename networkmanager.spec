@@ -26,7 +26,7 @@
 Name:		networkmanager
 Summary:	Network connection manager and user applications
 Version:	1.26.2
-Release:	1
+Release:	2
 Group:		System/Base
 License:	GPLv2+
 Url:		http://www.gnome.org/projects/NetworkManager/
@@ -83,9 +83,8 @@ Requires:	modemmanager
 Requires:	ppp = %{ppp_version}
 Requires(post,preun,postun):	rpm-helper
 Requires:	wireless-tools
-# Once iwd becomes better than wireless-tools on non-Intel:
-Requires:	(wpa_supplicant or iwd)
-Suggests:	wpa_supplicant
+Requires:	iwd
+Conflicts:	wpa_supplicant
 Recommends:	nscd
 Provides:	NetworkManager = %{EVRD}
 Obsoletes:	dhcdbd
@@ -231,6 +230,14 @@ EOF
 %post
 /usr/bin/udevadm control --reload-rules || :
 /usr/bin/udevadm trigger --subsystem-match=net || :
+
+# (tpg) make sure that IWD is default backend and restart NM
+# this may be removed or changed after wpa_supplicant go away
+%triggerin -- networkmanager < 1.26.2-2
+sed -i -e 's/^wifi.backend=.*/wifi.backend=iwd/g' /usr/lib/NetworkManager/conf.d/00-wifi-backend.conf
+sed -i -e 's/^#wifi.backend=.*//g' /usr/lib/NetworkManager/conf.d/00-wifi-backend.conf
+systemctl restart --quiet iwd.service
+systemctl restart --quiet NetworkManager.service
 
 %files -f %{rname}.lang
 %doc AUTHORS CONTRIBUTING NEWS README TODO
