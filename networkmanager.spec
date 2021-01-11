@@ -26,7 +26,7 @@
 Name:		networkmanager
 Summary:	Network connection manager and user applications
 Version:	1.28.0
-Release:	1
+Release:	2
 Group:		System/Base
 License:	GPLv2+
 Url:		http://www.gnome.org/projects/NetworkManager/
@@ -48,7 +48,7 @@ BuildRequires:	intltool
 BuildRequires:	iptables
 BuildRequires:	pkgconfig(readline)
 BuildRequires:	libiw-devel
-BuildRequires:	ppp-devel = %{ppp_version}
+BuildRequires:	ppp-devel >= %{ppp_version}
 BuildRequires:	pkgconfig(dbus-glib-1)
 BuildRequires:	pkgconfig(ext2fs)
 BuildRequires:	pkgconfig(gobject-introspection-1.0)
@@ -80,7 +80,7 @@ BuildRequires:	kernel-headers >= 4.11
 Requires:	iproute2
 Requires:	iptables
 Requires:	modemmanager
-Requires:	ppp = %{ppp_version}
+Requires:	ppp >= %{ppp_version}
 Requires(post,preun,postun):	rpm-helper
 Requires:	wireless-tools
 # Once iwd becomes better than wireless-tools on non-Intel:
