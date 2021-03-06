@@ -146,7 +146,8 @@ GObject Introspection interface description for %{name}.
 %build
 %define _disable_ld_no_undefined 1
 
-%meson -Dsystemdsystemunitdir="%{_unitdir}" \
+%meson \
+    -Dsystemdsystemunitdir="%{_unitdir}" \
     -Dsystem_ca_path="%{_sysconfdir}/pki/tls/certs" \
     -Dudev_dir="/lib/udev" \
     -Diptables="%{_sbindir}/iptables" \
@@ -178,7 +179,8 @@ GObject Introspection interface description for %{name}.
     -Dmore_logging=false \
     -Dld_gc=false \
     -Dcrypto=gnutls \
-    -Dqt=false
+    -Dqt=false \
+    -Dteamdctl=false
 
 %meson_build
 
