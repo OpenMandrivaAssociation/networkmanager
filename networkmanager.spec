@@ -292,7 +292,7 @@ fi
 %{_presetdir}/86-%{name}.preset
 %{_unitdir}/NetworkManager-wait-online.service
 %{_unitdir}/NetworkManager-dispatcher.service
-%{_unitdir}/NetworkManager.service.d
+#{_unitdir}/NetworkManager.service.d
 %{_unitdir}/dbus-org.freedesktop.nm-dispatcher.service
 %{_unitdir}/NetworkManager.service
 %{_mandir}/man1/*.1*
