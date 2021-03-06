@@ -180,7 +180,8 @@ GObject Introspection interface description for %{name}.
     -Dld_gc=false \
     -Dcrypto=gnutls \
     -Dqt=false \
-    -Dteamdctl=false
+    -Dteamdctl=false \
+    -Dovs=false
 
 %meson_build
 
