@@ -41,7 +41,7 @@ Source3:	00-wifi-backend.conf
 
 # OpenMandriva specific patches
 Patch51:	networkmanager-0.9.8.4-add-systemd-alias.patch
-Patch52:	networkmanager-1.26.0-no-we-are-not-redhat.patch
+#Patch52:	networkmanager-1.26.0-no-we-are-not-redhat.patch
 BuildRequires:	meson
 BuildRequires:	cmake
 BuildRequires:	gtk-doc
