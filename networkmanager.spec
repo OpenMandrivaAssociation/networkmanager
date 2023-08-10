@@ -364,7 +364,7 @@ fi
 %{_datadir}/polkit-1/actions/org.freedesktop.NetworkManager.policy
 %{_udevrulesdir}/*.rules
 %{_prefix}/lib/firewalld/zones/nm-shared.xml
-%{_prefix}/NetworkManager/dispatcher.d/
+%{_prefix}/lib/NetworkManager/dispatcher.d/
 %{_presetdir}/86-%{name}.preset
 %{_unitdir}/NetworkManager-wait-online.service
 %{_unitdir}/NetworkManager-dispatcher.service
@@ -372,7 +372,6 @@ fi
 %dir %{_unitdir}/NetworkManager.service.d
 %{_unitdir}/nm-cloud-setup.service
 %{_unitdir}/nm-cloud-setup.timer
-
 %{_unitdir}/dbus-org.freedesktop.nm-dispatcher.service
 %{_unitdir}/NetworkManager.service
 %doc %{_mandir}/man1/*.1*
