@@ -309,19 +309,19 @@ if [ -S /run/udev/control ]; then
     /bin/udevadm control --reload-rules || :
     /bin/udevadm trigger --subsystem-match=net || :
 fi
-%systemd_post NetworkManager.service NetworkManager-dispatcher.service
+%systemd_post NetworkManager.service NetworkManager-dispatcher.service nm-cloud-setup.service
 
 %preun
 if [ $1 -eq 0 ]; then
 # Package removal, not upgrade
     /bin/systemctl --no-reload disable NetworkManager.service >/dev/null 2>&1 || :
 fi
-%systemd_preun NetworkManager-wait-online.service NetworkManager-dispatcher.service
+%systemd_preun NetworkManager-wait-online.service NetworkManager-dispatcher.service nm-cloud-setup.service
 
 %postun
 /bin/udevadm control --reload-rules || :
 /bin/udevadm trigger --subsystem-match=net || :
-%systemd_postun NetworkManager.service NetworkManager-dispatcher.service
+%systemd_postun NetworkManager.service NetworkManager-dispatcher.service nm-cloud-setup.service
 
 %files -f %{rname}.lang
 %doc AUTHORS NEWS README* TODO
