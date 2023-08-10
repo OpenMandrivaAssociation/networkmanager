@@ -30,8 +30,8 @@
 
 Name:		networkmanager
 Summary:	Network connection manager and user applications
-Version:	1.42.8
-Release:	2
+Version:	1.44.0
+Release:	1
 Group:		System/Base
 License:	GPLv2+
 Url:		http://www.gnome.org/projects/NetworkManager/
@@ -41,7 +41,7 @@ Source3:	00-wifi-backend.conf
 
 # OpenMandriva specific patches
 Patch51:	networkmanager-0.9.8.4-add-systemd-alias.patch
-Patch52:	networkmanager-1.26.0-no-we-are-not-redhat.patch
+#Patch52:	networkmanager-1.26.0-no-we-are-not-redhat.patch
 BuildRequires:	meson
 BuildRequires:	cmake
 BuildRequires:	gtk-doc
@@ -309,19 +309,19 @@ if [ -S /run/udev/control ]; then
     /bin/udevadm control --reload-rules || :
     /bin/udevadm trigger --subsystem-match=net || :
 fi
-%systemd_post NetworkManager.service NetworkManager-dispatcher.service
+%systemd_post NetworkManager.service NetworkManager-dispatcher.service nm-cloud-setup.service
 
 %preun
 if [ $1 -eq 0 ]; then
 # Package removal, not upgrade
     /bin/systemctl --no-reload disable NetworkManager.service >/dev/null 2>&1 || :
 fi
-%systemd_preun NetworkManager-wait-online.service NetworkManager-dispatcher.service
+%systemd_preun NetworkManager-wait-online.service NetworkManager-dispatcher.service nm-cloud-setup.service
 
 %postun
 /bin/udevadm control --reload-rules || :
 /bin/udevadm trigger --subsystem-match=net || :
-%systemd_postun NetworkManager.service NetworkManager-dispatcher.service
+%systemd_postun NetworkManager.service NetworkManager-dispatcher.service nm-cloud-setup.service
 
 %files -f %{rname}.lang
 %doc AUTHORS NEWS README* TODO
@@ -348,6 +348,7 @@ fi
 #{_libexecdir}/nm-iface-helper
 %{_libexecdir}/nm-initrd-generator
 %{_libexecdir}/nm-priv-helper
+%{_libexecdir}/nm-cloud-setup
 %dir %{_libdir}/NetworkManager
 %dir %{_libdir}/NetworkManager/%{version}-%{release}
 %{_libdir}/pppd/*.*.*/nm-pppd-plugin.so
@@ -362,12 +363,15 @@ fi
 %{_datadir}/dbus-1/system.d/nm-priv-helper.conf
 %{_datadir}/polkit-1/actions/org.freedesktop.NetworkManager.policy
 %{_udevrulesdir}/*.rules
-/usr/lib/firewalld/zones/nm-shared.xml
+%{_prefix}/lib/firewalld/zones/nm-shared.xml
+%{_prefix}/lib/NetworkManager/dispatcher.d/
 %{_presetdir}/86-%{name}.preset
 %{_unitdir}/NetworkManager-wait-online.service
 %{_unitdir}/NetworkManager-dispatcher.service
 %{_unitdir}/nm-priv-helper.service
 %dir %{_unitdir}/NetworkManager.service.d
+%{_unitdir}/nm-cloud-setup.service
+%{_unitdir}/nm-cloud-setup.timer
 %{_unitdir}/dbus-org.freedesktop.nm-dispatcher.service
 %{_unitdir}/NetworkManager.service
 %doc %{_mandir}/man1/*.1*
