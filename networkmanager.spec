@@ -31,10 +31,10 @@
 Name:		networkmanager
 Summary:	Network connection manager and user applications
 Version:	1.46.0
-Release:	1
+Release:	2
 Group:		System/Base
 License:	GPLv2+
-Url:		http://www.gnome.org/projects/NetworkManager/
+Url:		https://www.gnome.org/projects/NetworkManager/
 Source0:	https://download.gnome.org/sources/NetworkManager/%{url_ver}/%{rname}-%{version}.tar.xz
 Source1:	NetworkManager.conf
 Source3:	00-wifi-backend.conf
