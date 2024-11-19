@@ -122,7 +122,6 @@ Summary:	Development files for NM
 Group:		Development/C
 Provides:	nm-devel = %{EVRD}
 Requires:	%{libnm} = %{EVRD}
-Requires:	%{nm_girname} = %{EVRD}
 Obsoletes:	%{devnm_util} < %{EVRD}
 Obsoletes:	%{devnm_glib} < %{EVRD}
 
