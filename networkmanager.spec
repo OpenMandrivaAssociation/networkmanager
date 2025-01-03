@@ -30,12 +30,13 @@
 
 Name:		networkmanager
 Summary:	Network connection manager and user applications
-Version:	1.50.0
-Release:	2
+Version:	1.50.1
+Release:	1
 Group:		System/Base
 License:	GPLv2+
 Url:		https://www.gnome.org/projects/NetworkManager/
-Source0:	https://download.gnome.org/sources/NetworkManager/%{url_ver}/%{rname}-%{version}.tar.xz
+#Source0:	https://download.gnome.org/sources/NetworkManager/%{url_ver}/%{rname}-%{version}.tar.xz
+Source0:    https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/archive/%{version}/NetworkManager-%{version}.tar.bz2    
 Source1:	NetworkManager.conf
 Source3:	00-wifi-backend.conf
 
