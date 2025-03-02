@@ -30,7 +30,7 @@
 
 Name:		networkmanager
 Summary:	Network connection manager and user applications
-Version:	1.50.2
+Version:	1.52.0
 Release:	1
 Group:		System/Base
 License:	GPLv2+
@@ -242,7 +242,6 @@ if you need to run those applications.
     -Debpf=true \
     -Dresolvconf=no \
     -Dconfig_dns_rc_manager_default=auto \
-    -Ddhcpcanon=no \
     -Ddhcpcd=no \
     -Dnft=%{_sbindir}/nft \
     -Dconfig_dhcp_default=internal \
