@@ -242,7 +242,6 @@ if you need to run those applications.
     -Debpf=true \
     -Dresolvconf=no \
     -Dconfig_dns_rc_manager_default=auto \
-    -Ddhcpcanon=no \
     -Ddhcpcd=no \
     -Dnft=%{_sbindir}/nft \
     -Dconfig_dhcp_default=internal \
