@@ -96,6 +96,8 @@ Recommends:	%{name}-wifi = %{EVRD}
 # OpenMandriva specific patches
 networkmanager-0.9.8.4-add-systemd-alias.patch
 networkmanager-1.52.0-default-to-ethernet-autonegotiation.patch
+# Fix docs build
+https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/commit/12eff9a7fdfeabab12ce56e5f7d515a13a3d704c.patch
 
 %description
 NetworkManager attempts to keep an active network connection available at all
