@@ -31,7 +31,7 @@
 Name:		networkmanager
 Summary:	Network connection manager and user applications
 Version:	1.52.0
-Release:	2
+Release:	3
 Group:		System/Base
 License:	GPLv2+
 Url:		https://www.gnome.org/projects/NetworkManager/
@@ -40,9 +40,6 @@ Source0:    https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/archi
 Source1:	NetworkManager.conf
 Source3:	00-wifi-backend.conf
 
-# OpenMandriva specific patches
-Patch51:	networkmanager-0.9.8.4-add-systemd-alias.patch
-#Patch52:	networkmanager-1.26.0-no-we-are-not-redhat.patch
 BuildRequires:	meson
 BuildRequires:	cmake
 BuildRequires:	gtk-doc
@@ -94,6 +91,11 @@ Obsoletes:	initscripts < 11.0-1
 # Let's not give people upgrading from monolithic NM (shipped until 4.2)
 # a nasty surprise...
 Recommends:	%{name}-wifi = %{EVRD}
+
+%patchlist
+# OpenMandriva specific patches
+networkmanager-0.9.8.4-add-systemd-alias.patch
+networkmanager-1.52.0-default-to-ethernet-autonegotiation.patch
 
 %description
 NetworkManager attempts to keep an active network connection available at all

@@ -1,0 +1,12 @@
+diff -up NetworkManager-1.52.0/src/libnm-core-impl/nm-setting-wired.c.omv~ NetworkManager-1.52.0/src/libnm-core-impl/nm-setting-wired.c
+--- NetworkManager-1.52.0/src/libnm-core-impl/nm-setting-wired.c.omv~	2025-04-14 20:08:26.243409864 +0200
++++ NetworkManager-1.52.0/src/libnm-core-impl/nm-setting-wired.c	2025-04-14 20:13:06.103365968 +0200
+@@ -1452,7 +1452,7 @@ nm_setting_wired_class_init(NMSettingWir
+                                                obj_properties,
+                                                NM_SETTING_WIRED_AUTO_NEGOTIATE,
+                                                PROP_AUTO_NEGOTIATE,
+-                                               FALSE,
++                                               TRUE,
+                                                NM_SETTING_PARAM_NONE,
+                                                NMSettingWiredPrivate,
+                                                auto_negotiate,
