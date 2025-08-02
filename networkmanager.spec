@@ -371,6 +371,9 @@ fi
 %{_unitdir}/NetworkManager-wait-online.service
 %{_unitdir}/NetworkManager-dispatcher.service
 %{_unitdir}/nm-priv-helper.service
+%{_unitdir}/NetworkManager-config-intrid.service
+%{_unitdir}/NetworkManager-intrid.service
+%{_unitdir}/NetworkManager-wait-online-intrid.service
 %dir %{_unitdir}/NetworkManager.service.d
 %{_unitdir}/nm-cloud-setup.service
 %{_unitdir}/nm-cloud-setup.timer
