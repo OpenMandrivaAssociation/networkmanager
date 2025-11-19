@@ -30,7 +30,7 @@
 
 Name:		networkmanager
 Summary:	Network connection manager and user applications
-Version:	1.54.1
+Version:	1.54.2
 Release:	1
 Group:		System/Base
 License:	GPLv2+
