@@ -351,6 +351,7 @@ fi
 %{_libexecdir}/nm-dispatcher
 #{_libexecdir}/nm-iface-helper
 %{_libexecdir}/nm-initrd-generator
+%{_libexecdir}/nm-libnm-helper
 %{_libexecdir}/nm-priv-helper
 %{_libexecdir}/nm-cloud-setup
 %dir %{_libdir}/NetworkManager
