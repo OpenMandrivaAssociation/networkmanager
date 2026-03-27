@@ -30,7 +30,7 @@
 
 Name:		networkmanager
 Summary:	Network connection manager and user applications
-Version:	1.54.3
+Version:	1.56.0
 Release:	1
 Group:		System/Base
 License:	GPLv2+
@@ -52,7 +52,7 @@ BuildRequires:	pkgconfig(ext2fs)
 BuildRequires:	pkgconfig(gobject-introspection-1.0)
 BuildRequires:	pkgconfig(gudev-1.0)
 BuildRequires:	pkgconfig(libnl-3.0)
-BuildRequires:	pkgconfig(libsoup-2.4)
+BuildRequires:	pkgconfig(libsoup-3.0)
 BuildRequires:	pkgconfig(mm-glib)
 BuildRequires:	pkgconfig(libsystemd)
 BuildRequires:	pkgconfig(nss)
