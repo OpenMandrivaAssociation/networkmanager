@@ -30,8 +30,8 @@
 
 Name:		networkmanager
 Summary:	Network connection manager and user applications
-Version:	1.52.0
-Release:	2
+Version:	1.56.0
+Release:	1
 Group:		System/Base
 License:	GPLv2+
 Url:		https://www.gnome.org/projects/NetworkManager/
@@ -40,9 +40,6 @@ Source0:    https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/archi
 Source1:	NetworkManager.conf
 Source3:	00-wifi-backend.conf
 
-# OpenMandriva specific patches
-Patch51:	networkmanager-0.9.8.4-add-systemd-alias.patch
-#Patch52:	networkmanager-1.26.0-no-we-are-not-redhat.patch
 BuildRequires:	meson
 BuildRequires:	cmake
 BuildRequires:	gtk-doc
@@ -55,7 +52,7 @@ BuildRequires:	pkgconfig(ext2fs)
 BuildRequires:	pkgconfig(gobject-introspection-1.0)
 BuildRequires:	pkgconfig(gudev-1.0)
 BuildRequires:	pkgconfig(libnl-3.0)
-BuildRequires:	pkgconfig(libsoup-2.4)
+BuildRequires:	pkgconfig(libsoup-3.0)
 BuildRequires:	pkgconfig(mm-glib)
 BuildRequires:	pkgconfig(libsystemd)
 BuildRequires:	pkgconfig(nss)
@@ -76,6 +73,7 @@ BuildRequires:	python3dist(pygobject)
 BuildRequires:	pkgconfig(udev)
 BuildRequires:	pkgconfig(vapigen)
 BuildRequires:	pkgconfig(mobile-broadband-provider-info)
+BuildRequires:  pkgconfig(libnvme)
 # So we can locate polkit-agent-helper-1
 BuildRequires:	polkit
 # For wext support
@@ -94,6 +92,13 @@ Obsoletes:	initscripts < 11.0-1
 # Let's not give people upgrading from monolithic NM (shipped until 4.2)
 # a nasty surprise...
 Recommends:	%{name}-wifi = %{EVRD}
+
+%patchlist
+# OpenMandriva specific patches
+#networkmanager-0.9.8.4-add-systemd-alias.patch
+networkmanager-1.52.0-default-to-ethernet-autonegotiation.patch
+# Fix docs build
+#https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/commit/12eff9a7fdfeabab12ce56e5f7d515a13a3d704c.patch
 
 %description
 NetworkManager attempts to keep an active network connection available at all
@@ -252,7 +257,7 @@ if you need to run those applications.
     -Dmore_logging=false \
     -Dld_gc=false \
     -Dcrypto=gnutls \
-    -Dqt=false
+    -Dqt=false 
 
 %meson_build
 
@@ -346,6 +351,7 @@ fi
 %{_libexecdir}/nm-dispatcher
 #{_libexecdir}/nm-iface-helper
 %{_libexecdir}/nm-initrd-generator
+%{_libexecdir}/nm-libnm-helper
 %{_libexecdir}/nm-priv-helper
 %{_libexecdir}/nm-cloud-setup
 %dir %{_libdir}/NetworkManager
@@ -373,6 +379,9 @@ fi
 %{_unitdir}/nm-cloud-setup.timer
 %{_unitdir}/dbus-org.freedesktop.nm-dispatcher.service
 %{_unitdir}/NetworkManager.service
+%{_unitdir}/%{rname}-config-initrd.service
+%{_unitdir}/%{rname}-initrd.service
+%{_unitdir}/%{rname}-wait-online-initrd.service
 %doc %{_mandir}/man1/*.1*
 %doc %{_mandir}/man5/*.5*
 %doc %{_mandir}/man7/nmcli-examples.7*
