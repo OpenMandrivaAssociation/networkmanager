@@ -30,7 +30,7 @@
 
 Name:		networkmanager
 Summary:	Network connection manager and user applications
-Version:	1.56.0
+Version:	1.58.0
 Release:	1
 Group:		System/Base
 License:	GPLv2+
@@ -220,7 +220,7 @@ third party applications (such as cloud-init) do. Install this package
 if you need to run those applications.
 
 %prep
-%autosetup -p1 -n %{rname}-%{version}
+%autosetup -p1 -n NetworkManager-1.58.0
 
 %build
 %define _disable_ld_no_undefined 1
