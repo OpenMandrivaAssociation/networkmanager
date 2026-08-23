@@ -33,7 +33,7 @@
 
 Name:		networkmanager
 Summary:	Network connection manager and user applications
-Version:	1.58.0
+Version:	1.58.1
 Release:	1
 Group:		System/Base
 License:	GPLv2+
@@ -61,6 +61,7 @@ BuildRequires:	pkgconfig(gobject-introspection-1.0)
 %endif
 BuildRequires:	pkgconfig(gudev-1.0)
 %if ! %{with bootstrap}
+BuildRequires:	pkgconfig(libbpf)
 BuildRequires:	pkgconfig(libnl-3.0)
 BuildRequires:	pkgconfig(libsoup-3.0)
 BuildRequires:	pkgconfig(mm-glib)
@@ -97,6 +98,7 @@ BuildRequires:  pkgconfig(libnvme)
 BuildRequires:	polkit
 # For wext support
 BuildRequires:	kernel-headers >= 4.11
+BuildRequires:  bpftool
 #BuildRequires:	python-gobject3-devel
 Requires:	iproute2
 %systemd_requires
@@ -239,7 +241,7 @@ third party applications (such as cloud-init) do. Install this package
 if you need to run those applications.
 
 %prep
-%autosetup -p1 -n NetworkManager-1.58.0
+%autosetup -p1 -n NetworkManager-%{version}
 
 %build
 %define _disable_ld_no_undefined 1
@@ -253,7 +255,6 @@ if you need to run those applications.
     -Dsession_tracking_consolekit=false \
     -Dsession_tracking=systemd \
     -Dsuspend_resume=systemd \
-    -Dmodify_system=true \
     -Difcfg_rh=true \
 %if %{with bootstrap}
     -Dofono=false \
@@ -423,6 +424,7 @@ fi
 %doc %{_mandir}/man7/nmcli-examples.7*
 %doc %{_mandir}/man8/*.8*
 %{_datadir}/doc/NetworkManager/examples/server.conf
+%{_prefix}/lib/systemd/system-generators/nm-initrd-generator.sh
 
 %files adsl
 %{_libdir}/NetworkManager/%{version}-%{release}/libnm-device-plugin-adsl.so
