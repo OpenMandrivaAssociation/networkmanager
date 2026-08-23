@@ -28,6 +28,9 @@
 %define devnm %mklibname -d nm
 %define ppp_version 2.5.2
 
+# Skip optional plugin stacks (ppp/wwan/bluetooth/team/ovs/gir/docs).
+%bcond_with bootstrap
+
 Name:		networkmanager
 Summary:	Network connection manager and user applications
 Version:	1.58.0
@@ -42,37 +45,53 @@ Source3:	00-wifi-backend.conf
 
 BuildRequires:	meson
 BuildRequires:	cmake
+%if ! %{with bootstrap}
 BuildRequires:	gtk-doc
 BuildRequires:	docbook-dtd42-xml
 BuildRequires:	iptables
+%endif
 BuildRequires:	pkgconfig(readline)
+%if ! %{with bootstrap}
 BuildRequires:	ppp-devel = %{ppp_version}
 BuildRequires:	pkgconfig(dbus-glib-1)
+%endif
 BuildRequires:	pkgconfig(ext2fs)
+%if ! %{with bootstrap}
 BuildRequires:	pkgconfig(gobject-introspection-1.0)
+%endif
 BuildRequires:	pkgconfig(gudev-1.0)
+%if ! %{with bootstrap}
 BuildRequires:	pkgconfig(libnl-3.0)
 BuildRequires:	pkgconfig(libsoup-3.0)
 BuildRequires:	pkgconfig(mm-glib)
+%endif
 BuildRequires:	pkgconfig(libsystemd)
 BuildRequires:	pkgconfig(nss)
 BuildRequires:	systemd-rpm-macros
+%if ! %{with bootstrap}
 BuildRequires:	pkgconfig(glibmm-2.4)
+%endif
 BuildRequires:	pkgconfig(gnutls)
 BuildRequires:	pkgconfig(polkit-gobject-1)
 BuildRequires:	pkgconfig(uuid)
 BuildRequires:	pkgconfig(libndp)
 BuildRequires:	pkgconfig(libnewt)
+%if ! %{with bootstrap}
 BuildRequires:	pkgconfig(mm-glib)
 BuildRequires:	pkgconfig(bluez)
 BuildRequires:	pkgconfig(libteamdctl)
 BuildRequires:	pkgconfig(libteam)
 BuildRequires:	pkgconfig(jansson)
+%endif
 BuildRequires:	pkgconfig(libcurl)
+%if ! %{with bootstrap}
 BuildRequires:	python3dist(pygobject)
+%endif
 BuildRequires:	pkgconfig(udev)
+%if ! %{with bootstrap}
 BuildRequires:	pkgconfig(vapigen)
 BuildRequires:	pkgconfig(mobile-broadband-provider-info)
+%endif
 BuildRequires:  pkgconfig(libnvme)
 # So we can locate polkit-agent-helper-1
 BuildRequires:	polkit
@@ -236,23 +255,38 @@ if you need to run those applications.
     -Dsuspend_resume=systemd \
     -Dmodify_system=true \
     -Difcfg_rh=true \
+%if %{with bootstrap}
+    -Dofono=false \
+    -Diwd=false \
+    -Dpppd_plugin_dir="%{_libdir}/pppd/%{ppp_version}" \
+    -Dteamdctl=false \
+    -Dppp=false \
+    -Dmodem_manager=false \
+    -Dovs=false \
+    -Dbluez5_dun=false \
+    -Debpf=false \
+    -Dintrospection=false \
+    -Dvapi=false \
+    -Ddocs=false \
+%else
     -Dofono=true \
-    -Dselinux=false \
-    -Dconfig_logging_backend_default=journal \
-    -Dlibaudit=no \
     -Diwd=true \
     -Dpppd_plugin_dir="%{_libdir}/pppd/%{ppp_version}" \
     -Dteamdctl=true \
     -Dbluez5_dun=true \
     -Debpf=true \
+    -Dintrospection=true \
+    -Dvapi=true \
+    -Ddocs=true \
+%endif
+    -Dselinux=false \
+    -Dconfig_logging_backend_default=journal \
+    -Dlibaudit=no \
     -Dresolvconf=no \
     -Dconfig_dns_rc_manager_default=auto \
     -Ddhcpcd=no \
     -Dnft=%{_sbindir}/nft \
     -Dconfig_dhcp_default=internal \
-    -Dintrospection=true \
-    -Dvapi=true \
-    -Ddocs=true \
     -Dtests=no \
     -Dmore_logging=false \
     -Dld_gc=false \
@@ -356,7 +390,9 @@ fi
 %{_libexecdir}/nm-cloud-setup
 %dir %{_libdir}/NetworkManager
 %dir %{_libdir}/NetworkManager/%{version}-%{release}
+%if ! %{with bootstrap}
 %{_libdir}/pppd/*.*.*/nm-pppd-plugin.so
+%endif
 %dir %{_localstatedir}/lib/%{rname}
 %ghost %{_localstatedir}/lib/%{rname}/*
 %{_datadir}/bash-completion/completions/nmcli
@@ -391,6 +427,7 @@ fi
 %files adsl
 %{_libdir}/NetworkManager/%{version}-%{release}/libnm-device-plugin-adsl.so
 
+%if ! %{with bootstrap}
 %files bluetooth
 %{_libdir}/NetworkManager/%{version}-%{release}/libnm-device-plugin-bluetooth.so
 
@@ -401,37 +438,46 @@ fi
 
 %files team
 %{_libdir}/NetworkManager/%{version}-%{release}/libnm-device-plugin-team.so
+%endif
 
 %files wifi
 %{_libdir}/NetworkManager/%{version}-%{release}/libnm-device-plugin-wifi.so
 %{_prefix}/lib/%{rname}/conf.d/00-wifi-backend.conf
 
+%if ! %{with bootstrap}
 %files wwan
 %{_libdir}/NetworkManager/%{version}-%{release}/libnm-device-plugin-wwan.so
 %{_libdir}/NetworkManager/%{version}-%{release}/libnm-wwan.so
 
 %files ppp
 %{_libdir}/NetworkManager/%{version}-%{release}/libnm-ppp-plugin.so
+%endif
 
 %files -n %{libnm}
 %{_libdir}/libnm.so.%{majlibnm}*
 
+%if ! %{with bootstrap}
 %files -n %{nm_girname}
 %{_libdir}/girepository-1.0/NM-%{api}.typelib
+%endif
 
 %files -n %{devnm}
 %dir %{_includedir}/libnm
 %{_includedir}/libnm/*.h
+%if ! %{with bootstrap}
 %doc %{_datadir}/gtk-doc/html/libnm
 %doc %{_datadir}/gtk-doc/html/NetworkManager
 %{_datadir}/gir-1.0/NM-1.0.gir
-%{_libdir}/pkgconfig/libnm.pc
-%{_libdir}/libnm.so
 %{_datadir}/vala/vapi/libnm.deps
 %{_datadir}/vala/vapi/libnm.vapi
+%endif
+%{_libdir}/pkgconfig/libnm.pc
+%{_libdir}/libnm.so
 
+%if ! %{with bootstrap}
 %files -n %{girname}
 %{_libdir}/girepository-1.0/NM-%{api}.typelib
+%endif
 
 %files ifcfg-rh
 %{_libdir}/NetworkManager/%{version}-%{release}/libnm-settings-plugin-ifcfg-rh.so
