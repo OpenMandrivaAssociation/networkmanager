@@ -412,7 +412,9 @@ fi
 %{_unitdir}/NetworkManager-wait-online.service
 %{_unitdir}/NetworkManager-dispatcher.service
 %{_unitdir}/nm-priv-helper.service
+%if ! %{with bootstrap}
 %dir %{_unitdir}/NetworkManager.service.d
+%endif
 %{_unitdir}/nm-cloud-setup.service
 %{_unitdir}/nm-cloud-setup.timer
 %{_unitdir}/dbus-org.freedesktop.nm-dispatcher.service
