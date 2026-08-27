@@ -269,6 +269,7 @@ if you need to run those applications.
     -Dintrospection=false \
     -Dvapi=false \
     -Ddocs=false \
+    -Dman=false \
 %else
     -Dofono=true \
     -Diwd=true \
@@ -419,10 +420,12 @@ fi
 %{_unitdir}/%{rname}-config-initrd.service
 %{_unitdir}/%{rname}-initrd.service
 %{_unitdir}/%{rname}-wait-online-initrd.service
+%if ! %{with bootstrap}
 %doc %{_mandir}/man1/*.1*
 %doc %{_mandir}/man5/*.5*
 %doc %{_mandir}/man7/nmcli-examples.7*
 %doc %{_mandir}/man8/*.8*
+%endif
 %{_datadir}/doc/NetworkManager/examples/server.conf
 %{_prefix}/lib/systemd/system-generators/nm-initrd-generator.sh
 
