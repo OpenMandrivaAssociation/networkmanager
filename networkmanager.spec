@@ -26,7 +26,7 @@
 %define libnm %mklibname nm %{majlibnm}
 %define nm_girname %mklibname nm-gir %{api}
 %define devnm %mklibname -d nm
-%define ppp_version 2.5.2
+%define ppp_version 2.5.4
 
 # Skip optional plugin stacks (ppp/wwan/bluetooth/team/ovs/gir/docs).
 %bcond_with bootstrap
