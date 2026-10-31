@@ -26,7 +26,7 @@
 %define libnm %mklibname nm %{majlibnm}
 %define nm_girname %mklibname nm-gir %{api}
 %define devnm %mklibname -d nm
-%define ppp_version 2.5.4
+%define ppp_version 2.5.5
 
 # Skip optional plugin stacks (ppp/wwan/bluetooth/team/ovs/gir/docs).
 %bcond_with bootstrap
@@ -34,7 +34,7 @@
 Name:		networkmanager
 Summary:	Network connection manager and user applications
 Version:	1.58.1
-Release:	4
+Release:	5
 Group:		System/Base
 License:	GPLv2+
 Url:		https://www.gnome.org/projects/NetworkManager/
